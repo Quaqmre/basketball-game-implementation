@@ -12,7 +12,7 @@ import (
 
 const (
 	DurationSec  = 240
-	AttackMaxSec = 3
+	AttackMaxSec = 24
 )
 
 type Game struct {
@@ -35,10 +35,15 @@ func NewGame(name string) *Game {
 		log:  log.New(os.Stdout, name, log.Ltime),
 		rand: rand.New(rand.NewSource(time.Now().UnixNano())),
 	}
+	game2 := Game{
+		Name: name,
+		log:  log.New(os.Stdout, name, log.Ltime),
+		rand: rand.New(rand.NewSource(time.Now().UnixNano())),
+	}
 
 	game.Teams = make([]*Team, 2)
 	game.Teams[0] = NewTeam(name+":Black", game.rand, game.log)
-	game.Teams[1] = NewTeam(name+":White", game.rand, game.log)
+	game.Teams[1] = NewTeam(name+":White", game2.rand, game2.log)
 
 	return &game
 }
